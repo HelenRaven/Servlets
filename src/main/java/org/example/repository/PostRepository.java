@@ -2,11 +2,13 @@ package org.example.repository;
 
 import org.example.exception.NotFoundException;
 import org.example.model.Post;
+import org.springframework.stereotype.Repository;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
+@Repository
 public class PostRepository {
     private final Map<Integer, Post> posts = new ConcurrentHashMap<>();
     private final AtomicLong counter = new AtomicLong(1);
