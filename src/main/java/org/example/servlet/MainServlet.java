@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class MainServlet extends HttpServlet {
     private PostController controller;
+    private static final String POSTS_PATH = "/api/posts";
 
     @Override
     public void init() {
@@ -25,21 +26,21 @@ public class MainServlet extends HttpServlet {
             final var path = req.getRequestURI();
             final var method = req.getMethod();
             // primitive routing
-            if (method.equals("GET") && path.equals("/api/posts")) {
+            if (method.equals("GET") && path.equals(POSTS_PATH)) {
                 controller.all(resp);
                 return;
             }
-            if (method.equals("GET") && path.matches("/api/posts/\\d+")) {
+            if (method.equals("GET") && path.matches(POSTS_PATH + "/\\d+")) {
                 // easy way
                 final var id = Long.parseLong(path.substring(path.lastIndexOf("/") + 1));
                 controller.getById(id, resp);
                 return;
             }
-            if (method.equals("POST") && path.equals("/api/posts")) {
+            if (method.equals("POST") && path.equals(POSTS_PATH)) {
                 controller.save(req.getReader(), resp);
                 return;
             }
-            if (method.equals("DELETE") && path.matches("/api/posts/\\d+")) {
+            if (method.equals("DELETE") && path.matches(POSTS_PATH + "/\\d+")) {
                 // easy way
                 System.out.println(path);
                 final var id = Long.parseLong(path.substring(path.lastIndexOf("/") + 1));
